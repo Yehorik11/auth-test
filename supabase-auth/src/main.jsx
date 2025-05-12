@@ -7,6 +7,8 @@ import { Register } from './pages/Register/Register.jsx';
 import { Dashboard } from './pages/Dashboard/Dashboard.jsx';
 import { Home } from './pages/Home/Home.jsx';
 import { Login } from './pages/Login/Login.jsx';
+import { AdminDashboard } from './pages/AdminDashboard/AdminDashboard.jsx';
+import { Callback } from './pages/Callback/Callback.jsx';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
 
 import App from './App.jsx';
@@ -29,12 +31,24 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
+        path: '/admin-dashboard',
+        element: (
+          <PrivateRoute requiredRole='admin'>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: '/dashboard',
         element: (
           <PrivateRoute>
             <Dashboard />
           </PrivateRoute>
         ),
+      },
+      {
+        path: '/callback',
+        element: <Callback />,
       },
     ],
   },

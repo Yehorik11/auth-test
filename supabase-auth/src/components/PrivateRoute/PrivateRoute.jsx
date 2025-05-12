@@ -1,45 +1,13 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
-import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router';
+import { useUserRole } from '../../hooks/useUserRole';
+import { Dashboard } from '../../pages/Dashboard/Dashboard';
 
-export const PrivateRoute = ({ children, requiredRole }) => {
-  const [session, setSession] = useState(null);
-  const [role, setRole] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+export const PrivateRoute = ({ children, requiredRole = null }) => {
+  const { role, loading } = useUserRole();
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session) {
-        supabase
-          .from('user_roles')
-          .select('roles(name)')
-          .eq('user_id', session.user.id)
-          .single()
-          .then(({ data, error }) => {
-            if (error) {
-              console.log('Error fetching role:', error.message);
-            } else {
-              setRole(data.roles.name);
-            }
-            setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
-    });
-  }, []);
-
-  if (loading) return <div>{role}</div>;
-
-  if (!session) {
-    return <Navigate to='/login' />;
-  }
+  if (loading) return <Dashboard />;
 
   if (requiredRole && role !== requiredRole) {
-    return <Navigate to='/' />;
+    return <div>Access Denied</div>;
   }
 
   return children;

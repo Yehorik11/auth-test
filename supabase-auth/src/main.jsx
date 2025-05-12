@@ -7,6 +7,7 @@ import { Register } from './pages/Register/Register.jsx';
 import { Dashboard } from './pages/Dashboard/Dashboard.jsx';
 import { Home } from './pages/Home/Home.jsx';
 import { Login } from './pages/Login/Login.jsx';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
 
 import App from './App.jsx';
 
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },

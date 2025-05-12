@@ -2,8 +2,9 @@ import { Outlet } from 'react-router';
 
 import { Header } from './components/Header/Header';
 
-import './index.css';
 import { Divider } from './components/Divider/Divider';
+
+import './index.css';
 
 function App() {
   return (

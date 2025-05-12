@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { supabase } from '../../supabaseClient';
+
 import { Button } from '../../components/Button/Button';
 import { SignInWithGoogle } from '../../components/SignInWithGoogle/SignInWithGoogle';
 

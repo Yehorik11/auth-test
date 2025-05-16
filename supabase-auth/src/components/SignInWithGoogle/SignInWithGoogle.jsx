@@ -6,7 +6,7 @@ export const SignInWithGoogle = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:5173/callback',
+        redirectTo: 'http://localhost:5173/dashboard',
       },
     });
 
